@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useAnalytics() {
   const [data, setData] = useState(null);
