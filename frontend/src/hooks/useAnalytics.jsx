@@ -10,7 +10,7 @@ export function useAnalytics() {
   useEffect(() => {
     async function fetchAnalytics() {
       try {
-        const response = await fetch("/api/analytics", {
+        const response = await fetch(`${apiUrl}/api/analytics`, {
           headers: {
             "Authorization": `Bearer ${token}`, // attach token here
             "Content-Type": "application/json",

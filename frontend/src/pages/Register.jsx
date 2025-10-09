@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaUserAlt, FaLock, FaRocket, FaUserPlus, FaRegLightbulb, FaChartLine, FaHeart, FaEnvelope } from 'react-icons/fa';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Register() {
   const navigate = useNavigate();

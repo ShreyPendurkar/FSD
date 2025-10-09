@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useCalendar() {
   const [events, setEvents] = useState([]);
@@ -10,7 +11,7 @@ export function useCalendar() {
   async function fetchEvents(startDate = null, endDate = null) {
     setLoading(true);
     try {
-      let url = "/api/events";
+      let url = `${apiUrl}/api/events`;
       if (startDate && endDate) {
         url += `?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
       }

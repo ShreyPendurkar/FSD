@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useNotes() {
   const [notes, setNotes] = useState([]);
@@ -12,7 +13,7 @@ export function useNotes() {
     async function fetchNotes() {
       setLoading(true);
       try {
-        const res = await fetch("/api/notes", {
+        const res = await fetch(`${apiUrl}/api/notes`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,  // Attach token here
@@ -38,7 +39,7 @@ export function useNotes() {
         ...newNote,
         createdAt: new Date().toISOString(),
       };
-      const res = await fetch("/api/notes", {
+      const res = await fetch(`${apiUrl}/api/notes`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -57,7 +58,7 @@ export function useNotes() {
   // Update a note by ID
   async function updateNote(id, updatedFields) {
     try {
-      const res = await fetch(`/api/notes/${id}`, {
+      const res = await fetch(`${apiUrl}/api/notes/${id}`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
@@ -78,7 +79,7 @@ export function useNotes() {
   // Delete a note by ID
   async function deleteNote(id) {
     try {
-      const res = await fetch(`/api/notes/${id}`, {
+      const res = await fetch(`${apiUrl}/api/notes/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,  // Attach token here

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 // Helper to get today's date string YYYY-MM-DD
 function getToday() {
@@ -17,7 +18,7 @@ export function useGoals() {
     async function fetchGoals() {
       setLoading(true);
       try {
-        const res = await fetch("/api/goals", {
+        const res = await fetch(`${apiUrl}/api/goals`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -45,7 +46,7 @@ export function useGoals() {
         completed: false,
         createdAt: new Date().toISOString()
       };
-      const res = await fetch("/api/goals", {
+      const res = await fetch(`${apiUrl}/api/goals`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ export function useGoals() {
         ...goal,
         completed: !goal.completed,
       };
-      const res = await fetch(`/api/goals/${id}`, {
+      const res = await fetch(`${apiUrl}/api/goals/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +97,7 @@ export function useGoals() {
       if (goal.history.includes(date)) return;
 
       const updatedHistory = [...goal.history, date];
-      const res = await fetch(`/api/goals/${id}/history`, {
+      const res = await fetch(`${apiUrl}/api/goals/${id}/history`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +122,7 @@ export function useGoals() {
       if (!goal) throw new Error("Goal not found");
 
       const updatedHistory = goal.history.filter((d) => d !== date);
-      const res = await fetch(`/api/goals/${id}/history`, {
+      const res = await fetch(`${apiUrl}/api/goals/${id}/history`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +143,7 @@ export function useGoals() {
   // Update a goal partially
   async function updateGoal(id, updatedFields) {
     try {
-      const res = await fetch(`/api/goals/${id}`, {
+      const res = await fetch(`${apiUrl}/api/goals/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -163,7 +164,7 @@ export function useGoals() {
   // Delete a goal
   async function deleteGoal(id) {
     try {
-      const res = await fetch(`/api/goals/${id}`, {
+      const res = await fetch(`${apiUrl}/api/goals/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useTasks() {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +13,7 @@ export function useTasks() {
     async function fetchTasks() {
       setLoading(true);
       try {
-        const res = await fetch("/api/tasks", {
+        const res = await fetch(`${apiUrl}/api/tasks`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,  // Attach token
@@ -40,7 +41,7 @@ export function useTasks() {
         completedAt: null,
         ...task,
       };
-      const res = await fetch("/api/tasks", {
+      const res = await fetch(`${apiUrl}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +66,7 @@ export function useTasks() {
         updatedFields.completedAt = null;
       }
 
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`${apiUrl}/api/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +87,7 @@ export function useTasks() {
   // Delete task
   async function deleteTask(id) {
     try {
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`${apiUrl}/api/tasks/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`, // Attach token

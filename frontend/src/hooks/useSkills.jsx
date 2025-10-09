@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function getToday() {
   return new Date().toISOString().slice(0, 10);
@@ -16,7 +17,7 @@ export function useSkills() {
     async function fetchSkills() {
       setLoading(true);
       try {
-        const res = await fetch("/api/skills", {
+        const res = await fetch(`${apiUrl}/api/skills`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,  // attach token here
@@ -46,7 +47,7 @@ export function useSkills() {
         checklist: checklistLabels.map(label => ({ label, checked: false })),
         createdAt: new Date().toISOString(),
       };
-      const res = await fetch("/api/skills", {
+      const res = await fetch(`${apiUrl}/api/skills`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +67,7 @@ export function useSkills() {
 
   async function markPracticed(id) {
     // ...
-    const res = await fetch(`/api/skills/${id}`, {
+    const res = await fetch(`${apiUrl}/api/skills/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +80,7 @@ export function useSkills() {
 
   async function updateChecklist(id, idx, checked) {
     // ...
-    const res = await fetch(`/api/skills/${id}`, {
+    const res = await fetch(`${apiUrl}/api/skills/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +93,7 @@ export function useSkills() {
 
   async function resetChecklist(id) {
     // ...
-    const res = await fetch(`/api/skills/${id}`, {
+    const res = await fetch(`${apiUrl}/api/skills/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +105,7 @@ export function useSkills() {
   }
 
   async function removeSkill(id) {
-    const res = await fetch(`/api/skills/${id}`, {
+    const res = await fetch(`${apiUrl}/api/skills/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,  // attach token here

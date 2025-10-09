@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useHealth() {
   const [logs, setLogs] = useState([]);
@@ -12,7 +13,7 @@ export function useHealth() {
     async function fetchLogs() {
       setLoading(true);
       try {
-        const res = await fetch("/api/health", {
+        const res = await fetch(`${apiUrl}/api/health`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -35,7 +36,7 @@ export function useHealth() {
     try {
       const isoDate = new Date(log.date).toISOString();
 
-      const url = "/api/health/";
+     const url = `${apiUrl}/api/health/`;
 
       const res = await fetch(url, {
         method: "POST",

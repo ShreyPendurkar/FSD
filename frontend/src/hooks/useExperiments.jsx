@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useExperiments() {
   const [experiments, setExperiments] = useState([]);
@@ -12,7 +13,7 @@ export function useExperiments() {
     async function fetchExperiments() {
       setLoading(true);
       try {
-        const res = await fetch("/api/experiments", {
+        const res = await fetch(`${apiUrl}/api/experiments`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -38,7 +39,7 @@ export function useExperiments() {
     }
     try {
       const completedAt = newStatus === "Completed" ? new Date().toISOString() : null;
-      const res = await fetch(`/api/experiments/${id}`, {
+      const res = await fetch(`${apiUrl}/api/experiments/${id}`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
@@ -65,7 +66,7 @@ export function useExperiments() {
         createdAt: new Date().toISOString(),
         completedAt: null,
       };
-      const res = await fetch("/api/experiments", {
+      const res = await fetch(`${apiUrl}/api/experiments`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -83,7 +84,7 @@ export function useExperiments() {
 
   async function deleteExperiment(id) {
     try {
-      const res = await fetch(`/api/experiments/${id}`, {
+      const res = await fetch(`${apiUrl}/api/experiments/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,

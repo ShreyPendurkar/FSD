@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export function useResources() {
   const [resources, setResources] = useState([]);
@@ -12,7 +13,7 @@ export function useResources() {
     async function fetchResources() {
       setLoading(true);
       try {
-        const response = await fetch("/api/resources", {
+        const response = await fetch(`${apiUrl}/api/resources`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,  // attach token
@@ -40,7 +41,7 @@ export function useResources() {
         createdAt: new Date().toISOString(),
         ...resource,
       };
-      const response = await fetch("/api/resources", {
+      const response = await fetch(`${apiUrl}/api/resources`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -59,7 +60,7 @@ export function useResources() {
   // Update a resource by id
   async function updateResource(id, updatedFields) {
     try {
-      const response = await fetch(`/api/resources/${id}`, {
+      const response = await fetch(`${apiUrl}/api/resources/${id}`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
@@ -80,7 +81,7 @@ export function useResources() {
   // Delete a resource by id
   async function deleteResource(id) {
     try {
-      const response = await fetch(`/api/resources/${id}`, {
+      const response = await fetch(`${apiUrl}/api/resources/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,  // attach token
@@ -96,7 +97,7 @@ export function useResources() {
   // Toggle bookmark state of a resource by id
   async function toggleBookmark(id) {
     try {
-      const response = await fetch(`/api/resources/${id}/toggleBookmark`, {
+      const response = await fetch(`${apiUrl}/api/resources/${id}/toggleBookmark`, {
         method: "PATCH", // or PUT if your backend expects it
         headers: {
           "Authorization": `Bearer ${token}`,  // attach token
