@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { FaUserAlt, FaLock, FaRocket, FaRegLightbulb, FaChartLine, FaHeart } from 'react-icons/fa';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default function Login() {
     setError('');
     if (email && password) {
       try {
-        const res = await fetch('http://localhost:5000/api/login', {
+        const res = await fetch(`${apiUrl}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -129,7 +130,6 @@ export default function Login() {
         </div>
         {/* Testimonial/Quote Bar */}
         <div className="mt-7 text-center text-gray-700 dark:text-gray-100">
-          
         </div>
       </div>
     </div>
